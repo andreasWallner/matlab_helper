@@ -45,7 +45,8 @@ function [ success message ] = write_vector_c( vector, array_type, array_name, f
         message = strcat('can''t write vector to file: ', message);
         error(message);
     end
-    fprintf( handle, '%s %s[] = {\n', array_type, array_name);
+    fprintf( handle, 'const short %s_length = %d;\n', array_name, vector_size);
+    fprintf( handle, 'const %s %s[] = {\n', array_type, array_name);
     for foo = 1 : vector_size
         if isinteger(vector)
             fprintf( handle, '  %d', vector(foo));
@@ -68,10 +69,13 @@ function [ success message ] = write_vector_c( vector, array_type, array_name, f
             message = strcat('can''t write vector to file: ', message);
             error(message);
         end
-        fprintf( handle, '#ifndef %s_h_\n', file_name);
-        fprintf( handle, '#define %s_h_\n', file_name);
-        fprintf( handle, 'extern %s %s[];\n', array_type, array_name);
-        fprintf( handle, '#endif // %s_h_\n', file_name);
+        esc_file_name = regexprep( file_name, '[\\ \$]', '_');
+        fprintf( handle, '#ifndef %s_h_\n', esc_file_name);
+        fprintf( handle, '#define %s_h_\n', esc_file_name);
+        fprintf( handle, '#define %s_LENGTH %d\n', upper(array_name), vector_size);
+        fprintf( handle, 'const extern %s %s[];\n', array_type, array_name);
+        fprintf( handle, 'const extern short %s_length;\n', array_name);
+        fprintf( handle, '#endif // %s_h_\n', esc_file_name);
         fclose(handle);
     end
     success = 1;

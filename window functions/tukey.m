@@ -1,5 +1,6 @@
 function [ win ] = tukey(length, alpha)
 %TUKEY creates tukey window with length 'length'
+	N = length - 1;
     rising_n = 0 : (alpha * N) / 2;
     falling_n = N* ( 1 - alpha/2) : N;
     stable_length = length - size(rising_n,2) - size(falling_n,2);
