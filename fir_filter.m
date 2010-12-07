@@ -23,7 +23,7 @@ function [ h ] = fir_filter(taps, fn, win, type)
     end
             
     n = -(taps - 1) / 2 : (taps - 1) / 2;
-    h = fn * sinc(2*n*fn) .* win; % <- warning, matlab defines sinc(x) as sin(pi*x)/(pi*x)
+    h = 2 * fn * sinc(2*n*fn) .* win; % <- warning, matlab defines sinc(x) as sin(pi*x)/(pi*x)
     
     % convert lowpass filter in highpass if neccesary
     if type == 'h'
