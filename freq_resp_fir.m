@@ -19,7 +19,7 @@ function [ fig_handle ] = freq_resp_fir( taps, accuracy )
     spec_len = size(spectrum); spec_len = spec_len(2);
     
     half_spec_start = ceil((spec_len - 1) / 2) + 1;
-    f = linspace( 0, 1, spec_len - half_spec_start + 1);
+    f = linspace( 0, 0.5, spec_len - half_spec_start + 1);
     
     fig_handle = gcf();
     subplot( 2, 1, 1);
