@@ -63,7 +63,7 @@ function [ success message ] = write_vector_vhdl_rom( vector, value_type, value_
     end
 
     [ handle message ] = fopen(strcat(entity_name, '-m.vhd'), 'w');
-    if handle == 0
+    if handle <= 0
         message = strcat('can''t write vector to file: ', message);
         error(message);
     end

@@ -41,7 +41,7 @@ function [ success message ] = write_vector_c( vector, array_type, array_name, f
     end
 
     [ handle message ] = fopen(strcat(file_name, '.c'), 'w');
-    if handle == 0
+    if handle <= 0
         message = strcat('can''t write vector to file: ', message);
         error(message);
     end
@@ -65,7 +65,7 @@ function [ success message ] = write_vector_c( vector, array_type, array_name, f
     
     if write_header == true
         [ handle message ] = fopen(strcat(file_name, '.h'), 'w');
-        if handle == 0
+        if handle <= 0
             message = strcat('can''t write vector to file: ', message);
             error(message);
         end
